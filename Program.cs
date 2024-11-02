@@ -80,11 +80,18 @@ namespace DistributeurTickets
                 {
                     Console.Write("Entrez le numéro de compte du client : ");
                     numeroCompte = Console.ReadLine();
-                    if (!VerifierUniciteNumeroCompte(numeroCompte))
+    
+                    if (string.IsNullOrWhiteSpace(numeroCompte))
+                    {
+                        Console.WriteLine("Le numéro de compte ne peut pas être vide. Veuillez entrer un numéro valide.");
+                    }
+                    else if (!VerifierUniciteNumeroCompte(numeroCompte))
                     {
                         Console.WriteLine("Numéro de compte déjà utilisé. Veuillez entrer un nouveau numéro.");
                     }
-                } while (!VerifierUniciteNumeroCompte(numeroCompte));
+
+                } while (string.IsNullOrWhiteSpace(numeroCompte) || !VerifierUniciteNumeroCompte(numeroCompte));
+
                 
                 string nom = SaisirChaineNonVide("Entrez le nom du client : ");
                 
