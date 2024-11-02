@@ -85,12 +85,10 @@ namespace DistributeurTickets
                         Console.WriteLine("Numéro de compte déjà utilisé. Veuillez entrer un nouveau numéro.");
                     }
                 } while (!VerifierUniciteNumeroCompte(numeroCompte));
-
-                Console.Write("Entrez le nom du client : ");
-                string nom = Console.ReadLine();
-
-                Console.Write("Entrez le prénom du client : ");
-                string prenom = Console.ReadLine();
+                
+                string nom = SaisirChaineNonVide("Entrez le nom du client : ");
+                
+                string prenom = SaisirChaineNonVide("Entrez le prénom du client : ");
 
                 int enAttente = compteur - 1;
                 string numeroTicket = $"{type}-{compteur}";
@@ -125,6 +123,24 @@ namespace DistributeurTickets
             }
             Console.Clear();
         }
+        
+        // Fonction pour obtenir une chaîne non vide en affichant un message spécifique
+        private static string SaisirChaineNonVide(string message)
+        {
+            string saisie;
+            do
+            {
+                Console.Write(message);
+                saisie = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(saisie))
+                {
+                    Console.WriteLine("La saisie ne peut pas être vide. Veuillez entrer une valeur valide.");
+                }
+            } while (string.IsNullOrWhiteSpace(saisie));
+
+            return saisie;
+        }
+
         
         // Fonction pour charger les clients de sessions antérieures
         static void ChargerClientsAnterieurs()
@@ -231,10 +247,10 @@ namespace DistributeurTickets
 
     class Client
     {
-        public string NumeroCompte { get; }
-        public string Nom { get; }
-        public string Prenom { get; }
-        public string NumeroTicket { get; }
+        public string NumeroCompte { get; set; }
+        public string Nom { get; set; }
+        public string Prenom { get; set; }
+        public string NumeroTicket { get; set; }
 
         public Client(string numeroCompte, string nom, string prenom, string numeroTicket)
         {
